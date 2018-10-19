@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+    position: relative;
+    height: 3.5em;
+    justify-content: center;
+    margin: 2em;
+}
+
+.reset-button {
+    position: absolute;
+    right: 0px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+.question,
+.answer,
+.mins-label {
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+.form-container {
+    position: absolute;
+    align-self: center;
+}
+*/
+
