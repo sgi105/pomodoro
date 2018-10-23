@@ -7,19 +7,22 @@ const minuteContainer = document.querySelector('.minute');
 const secondContainer = document.querySelector('.second');
 const buttonContainer = document.querySelector('.button-container');
 const progressContainer = document.querySelector('.progress');
-const form = document.querySelector('form');
+const $form = $('form'); // selecting with jQuery in order to use fadeIn, fadeOut
 const formXButton = document.querySelector('.form-x-button');
-const formOKButton = document.querySelector('.form-ok-button');
+const $formOKButton = $('.form-ok-button');
+const repeatForeverCheckBox = document.querySelector('#repeat-forever');
 var state = 'ready'; // ready, go, rest, longRest
-var sessionLength = 25;
-var restLength = 5;
-var longRestLength = 15;
-var targetSessionNumber = 12;
+var playState = 'stop';
 var progress;
 var minute;
 var second;
 var stopID;
 var titleText;
+//setting default value for the following 4 values
+var sessionLength = 25;
+var restLength = 5;
+var longRestLength = 15;
+var targetSessionNumber = 12;
 
 
 //-------------- Dynamically created Elements ------------------------
@@ -113,7 +116,7 @@ function stopTimer() {
 
 //------------- changeState Function: conditions for each state---------------------
 
-changeState('ready');
+changeState(); //initiate the ready state
 
 function changeState() {
     second = 0;
@@ -128,12 +131,21 @@ function changeState() {
         stateMessage.textContent = 'READY';
         display();
         progress = 0;
-        progressContainer.textContent = `- ${progress+1}/${targetSessionNumber} -`;
+        if (targetSessionNumber == 1000) { //targetSessionNumber == 1000 means that the user set the sessions to repeat forever. So, hide the total number of sessions
+            progressContainer.textContent = `- ${progress+1} -`;
+        } else {
+            progressContainer.textContent = `- ${progress+1}/${targetSessionNumber} -`;
+        }
+
 
     } else if (state == 'go') {
         header.style.background = 'rgb(95, 207, 128, 0.8)';
         progress++;
-        progressContainer.textContent = `- ${progress}/${targetSessionNumber} -`;
+        if (targetSessionNumber == 1000) { //targetSessionNumber == 1000 means that the user set the sessions to repeat forever. So, hide the total number of sessions
+            progressContainer.textContent = `- ${progress} -`;
+        } else {
+            progressContainer.textContent = `- ${progress}/${targetSessionNumber} -`;
+        }
         minute = sessionLength;
         stateMessage.textContent = 'GO';
     } else if (state == 'rest') {
@@ -162,6 +174,7 @@ playButton.addEventListener('click', () => {
     startTimer();
     buttonClear();
     buttonContainer.appendChild(pauseButton);
+    playState = 'play';
 });
 
 pauseButton.addEventListener('click', () => {
@@ -169,6 +182,7 @@ pauseButton.addEventListener('click', () => {
     buttonClear();
     buttonContainer.appendChild(playButton);
     buttonContainer.appendChild(resetButton);
+    playState = 'stop'
 });
 
 resetButton.addEventListener('click', () => {
@@ -193,24 +207,82 @@ resetButton.addEventListener('click', () => {
     buttonContainer.appendChild(playButton);
 });
 
-resetAllButton.addEventListener('click', () => {
-    state = 'ready';
-    changeState();
-})
+//resetAllButton.addEventListener('click', () => {
+//    state = 'ready';
+//    changeState();
+//}) 
 
 settingsButton.addEventListener('click', () => {
-    if (form.style.display == 'block') {
-        form.style.display = 'none';
-    } else form.style.display = 'block';
+    $form.fadeToggle(200);
 })
 
 formXButton.addEventListener('click', () => {
-    form.style.display = 'none';
+    $form.fadeOut(200);
 })
 
-//------------- Function related to form -------------
+document.addEventListener('keypress', function (event) {
+    switch (event.key.toLowerCase()) {
+        case ' ':
+            if (playState == 'stop') {
+                playButton.click();
+            } else {
+                pauseButton.click();
+            }
+            break;
 
-formOKButton.onclick = function () {
-    //    sessionLength = document.querySelector('#session').value;
-    header.style.color = 'black';
-}
+        case 's':
+            settingsButton.click();
+            break;
+
+        case 'r':
+            if (playState == 'stop') {
+                resetButton.click();
+            }
+            break;
+    }
+}); // 'SPACE' for toggle between play and stop. 
+//'S' key for opening/closing the setting window.
+//'R' key for resetting the timer and it is paused.
+
+
+document.addEventListener('keydown', function (event) {
+    if (event.keyCode == 27) {
+        $form.fadeOut(200);
+    }
+}); // when ESC is pressed, close the setting window.
+
+//------------- Functions related to form -------------
+
+$formOKButton.on('click', function (event) {
+    if ($('#session').val() >= 1 && // every number has to be a positive integer
+        $('#rest').val() >= 1 &&
+        $('#long-rest').val() >= 1 &&
+        $('#session-number').val() >= 1 &&
+        Number.isInteger(parseInt($('#session').val())) &&
+        Number.isInteger(parseInt($('#rest').val())) &&
+        Number.isInteger(parseInt($('#long-rest').val())) &&
+        Number.isInteger(parseInt($('#session-number').val()))
+    ) { // if the condition is not met, event.preventDefault() is not run, thus triggering the form sumbit to the server, and the form automatically checks if all the inputs match the validation of number inputs specified in the HTML. 
+        event.preventDefault();
+        sessionLength = $('#session').val();
+        restLength = $('#rest').val();
+        longRestLength = $('#long-rest').val();
+        if (repeatForeverCheckBox.checked) { // When the user selects "Repeat forever", set the total number of sessions to 1000.
+            targetSessionNumber = 1000;
+        } else {
+            targetSessionNumber = $('#session-number').val();
+        }
+        state = 'ready';
+        changeState();
+        stopTimer();
+        $form.fadeOut(200);
+    }
+});
+
+repeatForeverCheckBox.addEventListener('click', function () {
+    if (repeatForeverCheckBox.checked) {
+        document.querySelector('#session-number').setAttribute('disabled', 'true');
+    } else {
+        document.querySelector('#session-number').removeAttribute('disabled');
+    }
+}) // disable the user input for "Target Session Number" if they check "Repeat forever"

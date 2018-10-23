@@ -31,6 +31,7 @@ main {
 .flex {
     display: flex;
     justify-content: center;
+    /*    flex-wrap: wrap;*/
 }
 
 .question,
@@ -41,9 +42,9 @@ main {
 }
 
 /*
+
 .form-container {
-    position: absolute;
-    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 */
-

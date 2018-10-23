@@ -84,11 +84,24 @@ footer a {
 }
 
 header {
-    padding: 3em 0;
+    padding: 1em 0;
+    height: 11em;
+
 }
 
 .menu-bar {
     margin: 2em .5em;
+}
+
+/*
+
+.menu-bar-container {
+    max-width: 800px;
+}
+*/
+
+main {
+    max-width: 800px;
 }
 
 /*=====================Form Layout========================*/
@@ -101,17 +114,17 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 90%;
 }
 
 form {
     display: none;
-    padding: 2em;
+    padding: 2em 1em;
     font-size: 1em;
     border: 2px solid rgb(29, 158, 255, 0.8);
     border-radius: 15px;
     width: 100%;
-    height: 35vh;
+    /*    height: 35vh;*/
     margin: auto;
     position: relative;
     background: white;
@@ -157,6 +170,15 @@ form {
     opacity: 0.7;
 }
 
+.repeat-forever {
+    text-align: center;
+    font-size: 1em;
+}
+
+input:disabled {
+    color: lightgrey;
+}
+
 /*==================psuedo class========================*/
 
 .pointer:hover {
@@ -170,3 +192,18 @@ form {
 
 
 /*=====================Media Queries=========================*/
+
+@media (min-width: 445px) {
+    header {
+        padding: 3em 0;
+    }
+}
+
+
+@media (min-width: 800px) {
+    main {
+        min-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
