@@ -1,0 +1,36 @@
+Future updates:
+
+
+
+-Accessibility for mobile devices. Somehow it doesn’t work. (O)
+
+-make it fully customizable: can adjust times so that it is not uniform, number of pomo sessions between long breaks, sound volume control
+
+-Add next, prev button to navigate the timer
+
+-change all the icons to svg
+
+-Customize sound bell and when it will ring before time is out.
+
+-Make a circular progress bar around the clock. 
+
+-Make a linear progression bar at the bottom showing which section the user is currently at.  Toggle hide and show.
+
+-Let the user see what time it will end (toggle with hide and show)
+
+-Use ‘Pomodoro Timer’ for the title tag, and then change it dynamically when the timer is started
+
+
+-Use meta description tag
+
+-When search term is not included in the description tag, it will not show up. (include important keywords) ex) best Pomodoro timer on the web that is guaranteed to boost your productivity
+Meta keyword tag – google, bing doesn’t use it
+
+-Make a circular progress bar around the clock. 
+
+
+
+
+
+-finally, make this a game. People should be able to compete with each other and see the ranking who did the most. Give them accountability partners and make it a habit.
+

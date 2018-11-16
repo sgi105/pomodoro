@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+/*===============================
+Header Styles
+===============================*/
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/*===============================
+Main Styles
+===============================*/
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+    position: relative;
+    height: 3.5em;
+    justify-content: center;
+    margin: 2em;
+}
+
+.reset-button {
+    position: absolute;
+    right: 0px;
+}
+
+
+/*===============================
+Form Styles
+===============================*/
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*    flex-wrap: wrap;*/
+}
+
+.customizing-fieldset {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 1rem;
+    align-items: center;
+}
