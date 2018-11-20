@@ -120,6 +120,7 @@ Form Styles
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
+    max-width: 26.875rem;
 }
 
 form {
@@ -137,7 +138,7 @@ form {
 }
 
 input[type="number"] {
-    width: 1.5rem;
+    width: 1.9rem;
     height: 1.75em;
     border: none;
     border-bottom: 2px solid rgb(29, 158, 255, 0.8);

@@ -1,8 +1,8 @@
 Future updates:
 
+-Accessibility for mobile devices. Somehow it doesn’t work. (o) 11/18
 
-
--Accessibility for mobile devices. Somehow it doesn’t work. (O)
+-Edit the options widow. It doesn't fit the content (o) 11/20
 
 -make it fully customizable: can adjust times so that it is not uniform, number of pomo sessions between long breaks, sound volume control
 
@@ -20,7 +20,6 @@ Future updates:
 
 -Use ‘Pomodoro Timer’ for the title tag, and then change it dynamically when the timer is started
 
-
 -Use meta description tag
 
 -When search term is not included in the description tag, it will not show up. (include important keywords) ex) best Pomodoro timer on the web that is guaranteed to boost your productivity
@@ -28,9 +27,4 @@ Meta keyword tag – google, bing doesn’t use it
 
 -Make a circular progress bar around the clock. 
 
-
-
-
-
 -finally, make this a game. People should be able to compete with each other and see the ranking who did the most. Give them accountability partners and make it a habit.
-

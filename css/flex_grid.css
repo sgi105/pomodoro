@@ -50,7 +50,7 @@ main {
 Form Styles
 ===============================*/
 
-form {
+.form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,6 +61,7 @@ form {
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(4, 1fr);
+    place-items: center;
+    justify-content: center;
     grid-gap: 1rem;
-    align-items: center;
 }

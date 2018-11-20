@@ -285,4 +285,5 @@ repeatForeverCheckBox.addEventListener('click', function () {
     } else {
         document.querySelector('#session-number').removeAttribute('disabled');
     }
-}) // disable the user input for "Target Session Number" if they check "Repeat forever"
+}); // disable the user input for "Target Session Number" if they check "Repeat forever"
+
