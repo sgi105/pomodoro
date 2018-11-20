@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pomodoro</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flex_grid.css">
 </head>
@@ -68,7 +68,7 @@
                 <input id="long-rest" name="longRestLength" type="number" value="15" min="1">
                 <span class='form-unit'>mins</span>
 
-                <label for="session-number">Target Session Number:</label>
+                <label for="session-number">Target Sessions:</label>
                 <input id="session-number" name="targetSessionNumber" type="number" value="12" min="1">
                 <span class='form-unit'>sessions</span>
 
@@ -80,6 +80,7 @@
                 <label for="repeat-forever" class="repeat-forever">Repeat forever</label>
             </div>
 
+            <button class="fully-customize-button pointer">Fully Customize</button>
             <button class="form-ok-button pointer">OK</button>
 
         </form>

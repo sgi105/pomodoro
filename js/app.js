@@ -126,7 +126,7 @@ function changeState() {
     if (state == 'ready') {
         buttonClear();
         buttonContainer.appendChild(playButton);
-        header.style.background = 'rgb(29, 158, 255, 0.8)';
+        header.style.background = 'rgba(29, 158, 255, 0.8)';
         minute = sessionLength;
         stateMessage.textContent = 'READY';
         display();
@@ -139,7 +139,7 @@ function changeState() {
 
 
     } else if (state == 'go') {
-        header.style.background = 'rgb(95, 207, 128, 0.8)';
+        header.style.background = 'rgba(95, 207, 128, 0.8)';
         progress++;
         if (targetSessionNumber == 1000) { //targetSessionNumber == 1000 means that the user set the sessions to repeat forever. So, hide the total number of sessions
             progressContainer.textContent = `- ${progress} -`;
@@ -149,11 +149,11 @@ function changeState() {
         minute = sessionLength;
         stateMessage.textContent = 'GO';
     } else if (state == 'rest') {
-        header.style.background = 'rgb(252, 136, 126, 0.8)';
+        header.style.background = 'rgba(252, 136, 126, 0.8)';
         minute = restLength;
         stateMessage.textContent = 'REST';
     } else if (state == 'longRest') {
-        header.style.background = 'rgb(252, 136, 126)';
+        header.style.background = 'rgba(252, 136, 126)';
         minute = longRestLength;
         stateMessage.textContent = 'LONG REST';
     } else if (state == 'finish') {
@@ -286,4 +286,3 @@ repeatForeverCheckBox.addEventListener('click', function () {
         document.querySelector('#session-number').removeAttribute('disabled');
     }
 }); // disable the user input for "Target Session Number" if they check "Repeat forever"
-

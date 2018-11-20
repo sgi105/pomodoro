@@ -4,7 +4,7 @@ Future updates:
 
 -Edit the options widow. It doesn't fit the content (o) 11/20
 
--make it fully customizable: can adjust times so that it is not uniform, number of pomo sessions between long breaks, sound volume control
+-make it fully customizable: can adjust times so that it is not uniform, number of pomo sessions between long breaks, sound volume control (I want to add a nap session)
 
 -Add next, prev button to navigate the timer
 
