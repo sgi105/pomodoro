@@ -1,53 +1,54 @@
-const title = document.querySelector('title');
-const header = document.querySelector('header');
-const stateMessage = document.querySelector('.state-message');
-const menuButton = document.querySelector('.menu-icon');
-const settingsButton = document.querySelector('.settings-icon');
-const minuteContainer = document.querySelector('.minute');
-const secondContainer = document.querySelector('.second');
-const buttonContainer = document.querySelector('.button-container');
-const progressContainer = document.querySelector('.progress');
-const $form = $('form'); // selecting with jQuery in order to use fadeIn, fadeOut
-const formXButton = document.querySelector('.form-x-button');
-const $formOKButton = $('.form-ok-button');
-const repeatForeverCheckBox = document.querySelector('#repeat-forever');
-var state = 'ready'; // ready, go, rest, longRest
-var playState = 'stop';
-var progress;
-var minute;
-var second;
-var stopID;
-var titleText;
+const title = document.querySelector('title'); //Page
+const header = document.querySelector('header'); //State
+const stateMessage = document.querySelector('.state-message'); //State
+const menuButton = document.querySelector('.menu-icon'); //Page
+const settingsButton = document.querySelector('.settings-icon'); //Setting
+const minuteContainer = document.querySelector('.minute'); //Timer
+const secondContainer = document.querySelector('.second'); //Timer
+const buttonContainer = document.querySelector('.button-container'); //Button
+const progressContainer = document.querySelector('.progress'); //State
+const $form = $('form'); // selecting with jQuery in order to use fadeIn, fadeOut //Setting
+const formXButton = document.querySelector('.form-x-button'); //Setting
+const $formOKButton = $('.form-ok-button'); //Setting
+const repeatForeverCheckBox = document.querySelector('#repeat-forever'); //Setting
+var state = 'ready'; // ready, go, rest, longRest //State
+var playState = 'stop'; //State
+var progress; //State
+var minute; //Timer
+var second; //Timer
+var stopID; //Timer
+var titleText; //Page
 //setting default value for the following 4 values
-var sessionLength = 25;
-var restLength = 5;
-var longRestLength = 15;
-var targetSessionNumber = 12;
+var sessionLength = 25; //Setting
+var restLength = 5; //Setting
+var longRestLength = 15; //Setting
+var targetSessionNumber = 12; //Setting
+
 
 
 //-------------- Dynamically created Elements ------------------------
-const playButton = document.createElement('img');
+const playButton = document.createElement('img'); //Button
 playButton.className = 'play-button pointer';
 playButton.src = 'img/play.png';
 playButton.alt = 'play button';
-const pauseButton = document.createElement('img');
+const pauseButton = document.createElement('img'); //Button
 pauseButton.className = 'pause-button pointer';
 pauseButton.src = 'img/pause.png';
 pauseButton.alt = 'pause button';
-const resetButton = document.createElement('img');
+const resetButton = document.createElement('img'); //Button
 resetButton.className = 'reset-button pointer';
 resetButton.src = 'img/reset.png';
 resetButton.alt = 'reset button';
-const resetAllButton = document.createElement('img');
+const resetAllButton = document.createElement('img'); //Button
 resetAllButton.className = 'reset-all-button pointer';
 resetAllButton.src = 'img/reset.png';
 resetAllButton.alt = 'reset-all-button';
 
-var bell = new Audio();
+var bell = new Audio(); //Page
 bell.src = "../audio/bell.wav";
 bell.volume = 0.5;
 
-//------------ Basic functions --------------------------------------
+//------------ Basic functions -------------------------------------- 
 function display() { // updates and displays the clock
     if (minute < 10) {
         minuteContainer.textContent = '0' + minute;
@@ -207,11 +208,6 @@ resetButton.addEventListener('click', () => {
     buttonContainer.appendChild(playButton);
 });
 
-//resetAllButton.addEventListener('click', () => {
-//    state = 'ready';
-//    changeState();
-//}) 
-
 settingsButton.addEventListener('click', () => {
     $form.fadeToggle(200);
 })
@@ -245,13 +241,14 @@ document.addEventListener('keypress', function (event) {
 //'R' key for resetting the timer and it is paused.
 
 
+
+//------------- Functions related to form -------------
+
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 27) {
         $form.fadeOut(200);
     }
 }); // when ESC is pressed, close the setting window.
-
-//------------- Functions related to form -------------
 
 $formOKButton.on('click', function (event) {
     if ($('#session').val() >= 1 && // every number has to be a positive integer
