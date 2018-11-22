@@ -1,11 +1,11 @@
 const title = document.querySelector('title'); //Page
 const header = document.querySelector('header'); //State
 const stateMessage = document.querySelector('.state-message'); //State
-const menuButton = document.querySelector('.menu-icon'); //Page
+const menuButton = document.querySelector('.menu-icon'); //Menu
 const settingsButton = document.querySelector('.settings-icon'); //Setting
 const minuteContainer = document.querySelector('.minute'); //Timer
 const secondContainer = document.querySelector('.second'); //Timer
-const buttonContainer = document.querySelector('.button-container'); //Button
+const buttonContainer = document.querySelector('.button-container'); //Controller
 const progressContainer = document.querySelector('.progress'); //State
 const $form = $('form'); // selecting with jQuery in order to use fadeIn, fadeOut //Setting
 const formXButton = document.querySelector('.form-x-button'); //Setting
@@ -17,7 +17,7 @@ var progress; //State
 var minute; //Timer
 var second; //Timer
 var stopID; //Timer
-var titleText; //Page
+var titleText; //Timer
 //setting default value for the following 4 values
 var sessionLength = 25; //Setting
 var restLength = 5; //Setting
@@ -208,13 +208,6 @@ resetButton.addEventListener('click', () => {
     buttonContainer.appendChild(playButton);
 });
 
-settingsButton.addEventListener('click', () => {
-    $form.fadeToggle(200);
-})
-
-formXButton.addEventListener('click', () => {
-    $form.fadeOut(200);
-})
 
 document.addEventListener('keypress', function (event) {
     switch (event.key.toLowerCase()) {
@@ -243,6 +236,14 @@ document.addEventListener('keypress', function (event) {
 
 
 //------------- Functions related to form -------------
+
+settingsButton.addEventListener('click', () => {
+    $form.fadeToggle(200);
+})
+
+formXButton.addEventListener('click', () => {
+    $form.fadeOut(200);
+})
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 27) {

@@ -1,10 +1,12 @@
 class Timer {
     constructor() {
-        this.minuteContainer = document.querySelector('.minute'); //Timer
-        this.secondContainer = document.querySelector('.second'); //Timer
-        this.minute; //Timer
-        this.second; //Timer
-        this.stopID; //Timer
+        this.minuteContainer = document.querySelector('.minute');
+        this.secondContainer = document.querySelector('.second');
+        this.minute;
+        this.second;
+        this.stopID;
+        this.title = document.querySelector('title');
+        this.titleText;
     }
 
 
@@ -26,13 +28,12 @@ class Timer {
      */
     start() {
         if (pomoState.state == 'ready') {
-            pomoState.state = 'go';
-            pomoState.changeState();
+            pomoState.toNextState();
         }
         this.stopID = setInterval(() => {
             if (this.second === 0) { //When second hits 0
                 if (this.minute === 0) { // When timer hits 0, call State object.
-                    pomoState.manage()
+                    pomoState.toNextState();
                 } else { // when this.second hits 0, decrease this.minute by 1
                     this.minute--;
                     this.second = 59;
@@ -51,27 +52,27 @@ class Timer {
     };
 
     /** 
-     * Updates and displays the timer.
+     * Updates and displays the timer. Both on the screen, and on the title bar.
      * @return null
      */
-    render() { // I think some of this part should be part of the page object.
+    render() {
         if (this.minute < 10) {
             this.minuteContainer.textContent = '0' + this.minute;
-            pomoPage.titleText = '0' + this.minute
+            this.titleText = '0' + this.minute
         } else {
             this.minuteContainer.textContent = this.minute;
-            pomoPage.titleText = String(this.minute);
+            this.titleText = String(this.minute);
         }
         pomoPage.titleText += ':';
         if (this.second < 10) {
             this.secondContainer.textContent = '0' + this.second;
-            pomoPage.titleText += '0' + this.second;
+            this.titleText += '0' + this.second;
         } else {
             this.secondContainer.textContent = this.second;
-            pomoPage.titleText += String(this.second);
+            this.titleText += String(this.second);
         }
-        pomoPage.titleText += " " + pomoState.toUpperCase();
-        pomoPage.title.text = pomoPage.titleText;
+        this.titleText += " " + this.toUpperCase();
+        this.title.text = this.titleText;
     }
 
 }

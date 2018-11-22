@@ -2,15 +2,15 @@ class State {
     constructor() {
 
         //selectors
-        this.stateMessage = document.querySelector('.state-message'); //State
-        this.progressContainer = document.querySelector('.progress'); //State
+        this.stateMessage = document.querySelector('.state-message');
+        this.progressContainer = document.querySelector('.progress');
         this.header = document.querySelector('header');
 
         //variables
         this.stateArray = [];
-        this.state = 'ready'; // ready, go, rest, longRest //State
-        this.playState = 'stop'; //State
-        this.progress = 0; //State
+        this.state = 'ready'; // ready, go, rest, longRest 
+        this.playState = 'stop';
+        this.progress = 0;
 
         //colors
         this.readyColor = 'rgba(29, 158, 255, 0.8)';
@@ -107,8 +107,8 @@ class State {
         switch (state) {
             case 'ready':
                 pomoTimer.set(pomoSetting.sessionLength, 0);
-                pomoButton.render('ready');
                 this.header.style.background = this.readyColor;
+                pomoButton.render('ready');
                 break;
 
             case 'go':
@@ -127,8 +127,8 @@ class State {
                 break;
 
             case 'finish':
-                pomoButton.render('finish');
                 this.header.style.background = this.finishColor;
+                pomoButton.render('finish');
                 break;
         }
     }
