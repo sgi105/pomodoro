@@ -4,14 +4,21 @@ Future updates:
 
 -Edit the options widow. It doesn't fit the content (o) 11/20
 
--making the app object oriented sytle
+-making the app object oriented sytle(11/23 Complete)
 *State.js 11/21
 *Timer.js 11/21
 *Setting.js 11/22
 *Controller.js 11/22
+*Sound.js 11/23
 
 -make it fully customizable: can adjust times so that it is not uniform, number of pomo sessions between long breaks, sound volume control (I want to add a nap session)
 : do this with a todo list. 
+
+*made customization page, not fully functioning yet.
+* have to make clear all, x button for each, and transition fade in, and be able to reach this page through setting
+
+
+
 
 -Add next, prev button to navigate the timer
 

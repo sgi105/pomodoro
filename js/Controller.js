@@ -25,18 +25,11 @@ class Controller {
         this.resetAllButton.src = 'img/reset.png';
         this.resetAllButton.alt = 'reset-all-button';
 
+        //initialize
+        this.createEventListeners();
+
     }
 
-    /**
-     * Creates an array of states that are going to be played once the app is started.
-     * @param {number} targetSessions - The number of sessions targeted.
-     * @return null 
-     */
-    buttonClear() { // clear all buttons from the buttonContainer
-        while (this.buttonContainer.firstElementChild) {
-            this.buttonContainer.removeChild(this.buttonContainer.firstElementChild);
-        }
-    }
 
     /**
      * Creates all the event listeners for the buttons.
@@ -56,10 +49,24 @@ class Controller {
             this.render('reset');
         });
 
-        document.addEventListener('keypress', function (event) {
+        document.addEventListener('keypress', (event) => {
             this.handleKeyboardShortCuts(event);
         });
     }
+
+
+    /**
+     * Creates an array of states that are going to be played once the app is started.
+     * @param {number} targetSessions - The number of sessions targeted.
+     * @return null 
+     */
+    buttonClear() { // clear all buttons from the buttonContainer
+        while (this.buttonContainer.firstElementChild) {
+            this.buttonContainer.removeChild(this.buttonContainer.firstElementChild);
+        }
+    }
+
+
 
     /**
      * 'SPACE' for toggle between play and stop.
@@ -122,7 +129,7 @@ class Controller {
                 break;
 
             case 'reset':
-                pomoState.render(pomoState.state);
+                pomoStateManager.render(pomoStateManager.state);
                 this.buttonClear();
                 this.buttonContainer.appendChild(this.playButton);
                 break;
@@ -132,27 +139,14 @@ class Controller {
 
 
     /**
-     * Creates an array of states that are going to be played once the app is started.
-     * @param {number} targetSessions - The number of sessions targeted.
+     * Ipsum Lorem blablabla
+     * @param {something} Ipsum Lorem blablabla
      * @return null 
      */
 
 
 
 
-
-
-
-
-
-    /**
-     * Creates an array of states that are going to be played once the app is started.
-     * @param {number} targetSessions - The number of sessions targeted.
-     * @return null 
-     */
-
-
-    // take care of buttons, 
 
 
 
