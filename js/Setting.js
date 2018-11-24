@@ -10,10 +10,15 @@ class Setting {
         this.sessionNumberInput = document.querySelector('#session-number');
         this.fullyCustomizeButton = document.querySelector('.fully-customize-button');
 
+        //customization window elements
+        this.$customizationWindow = $('.customization-window');
         this.addGoButton = document.querySelector('.add-go-button');
         this.addRestButton = document.querySelector('.add-rest-button');
         this.addLongRestButton = document.querySelector('.add-long-rest-button');
         this.customizationMainDisplay = document.querySelector('.customization-main-display');
+        this.clearAllButton = document.querySelector('.customization-clear-button');
+        this.customizationOkButton = document.querySelector('.customization-ok-button');
+        this.customizationXButton = document.querySelector('.customization-x-button');
 
 
         //variables
@@ -34,7 +39,7 @@ class Setting {
      */
     createEventListeners() {
         this.settingsButton.addEventListener('click', () => {
-            this.toggleForm();
+            this.toggleFade(this.$form);
         });
 
         this.repeatForeverCheckBox.addEventListener('click', () => {
@@ -48,16 +53,16 @@ class Setting {
                 this.storeValuesOfForm();
                 pomoStateManager.createStateArray(this.targetSessionNumber);
                 pomoStateManager.render(new State('ready'));
-                this.toggleForm();
+                this.toggleFade(this.$form);
             }
         });
 
         document.addEventListener('keydown', (event) => {
-            if (event.keyCode == 27) this.toggleForm();
+            if (event.keyCode == 27) this.toggleFade(this.$form);
         });
 
         this.formXButton.addEventListener('click', () => {
-            this.toggleForm();
+            this.toggleFade(this.$form);
         })
 
         this.addGoButton.onclick = () => {
@@ -75,7 +80,61 @@ class Setting {
             this.renderCustomArray();
         }
 
+        this.clearAllButton.onclick = () => {
+            this.clearAllStates();
+        }
+
+        this.customizationOkButton.onclick = () => {
+            this.createCustomStateArray();
+        }
+
+        this.customizationMainDisplay.onclick = (evt) => {
+            this.removeState(evt);
+        }
+
+        this.customizationOkButton.onclick = (evt) => {
+            evt.preventDefault();
+            this.createCustomStateArray();
+            this.toggleFade(this.$customizationWindow);
+            this.toggleFade(this.$form);
+
+            pomoSetting.targetSessionNumber = document.querySelectorAll('.go-label').length;
+
+            pomoStateManager.render(new State('ready'));
+        }
+
+        this.fullyCustomizeButton.onclick = (evt) => {
+            evt.preventDefault();
+            this.toggleFade(this.$customizationWindow);
+            this.storeValuesOfForm();
+            this.clearAllStates();
+        }
+
+        this.customizationXButton.onclick = (evt) => {
+            this.toggleFade(this.$customizationWindow);
+        }
     }
+
+    removeState(evt) {
+        if (evt.target.className.includes('minus')) {
+            let list = document.querySelectorAll('.minus');
+            let index;
+            for (let i = 0; i < list.length; i++) {
+                if (list[i] == evt.target) index = i;
+            }
+
+            evt.target.nextElementSibling.remove();
+            evt.target.nextElementSibling.remove();
+            evt.target.remove();
+
+            pomoStateManager.stateArray.splice(index, 1);
+
+
+            console.log(pomoStateManager.stateArray);
+        }
+    }
+
+
 
     /**
      * disable the user input for "Target Session Number" if they check "Repeat forever"
@@ -119,8 +178,8 @@ class Setting {
      * Makes the form fade in and out.
      * @return null 
      */
-    toggleForm() {
-        this.$form.fadeToggle(200);
+    toggleFade(fadeThis) {
+        fadeThis.fadeToggle(200);
     }
 
 
@@ -130,38 +189,120 @@ class Setting {
      * @return null 
      */
     addGo() {
-        pomoStateManager.stateArray.push(new State('go'));
+        pomoStateManager.stateArray.push(new State('go', pomoSetting.sessionLength));
     }
 
     addRest() {
-        pomoStateManager.stateArray.push(new State('rest'));
+        pomoStateManager.stateArray.push(new State('rest', pomoSetting.restLength));
     }
 
     addLongRest() {
-        pomoStateManager.stateArray.push(new State('longRest'));
+        pomoStateManager.stateArray.push(new State('longRest', pomoSetting.longRestLength));
     }
 
+
+
+    /**
+     * Creates elements and append it to the main display area to show the user visually how the states are created. 
+     * @return null 
+     */
     renderCustomArray() {
         let stateNameToAdd = pomoStateManager.stateArray.slice(-1)[0].name;
         let stateLengthToAdd = pomoStateManager.stateArray.slice(-1)[0].length;
-        let newStateElement = document.createElement('div');
 
-        if (stateNameToAdd == 'longRest') newStateElement.className = 'long-rest-label';
-        else newStateElement.className = stateNameToAdd + '-label';
+        let newStateLabel = this.createStateLabel(stateNameToAdd);
+        let newCustomLengthControl = this.createCustomLengthControl(stateLengthToAdd);
+        let newMinusButton = this.createMinusButton(stateNameToAdd);
 
-        if (stateNameToAdd == 'longRest') newStateElement.textContent = 'LONG REST';
-        else newStateElement.textContent = stateNameToAdd.toUpperCase();
+        this.customizationMainDisplay.appendChild(newMinusButton);
+        this.customizationMainDisplay.appendChild(newStateLabel);
+        this.customizationMainDisplay.appendChild(newCustomLengthControl);
+        console.log(pomoStateManager.stateArray);
+    }
 
+    /**
+     * Creates a new state label element go, rest, or long rest with correlated color.
+     * @param {String} stateNameToAdd - State name of the new label to be created.
+     * @return new label element
+     */
+    createStateLabel(stateNameToAdd) {
+        let newStateLabel = document.createElement('div');
+
+        if (stateNameToAdd == 'longRest') newStateLabel.className = 'long-rest-label';
+        else newStateLabel.className = stateNameToAdd + '-label';
+
+        if (stateNameToAdd == 'longRest') newStateLabel.textContent = 'LONG REST';
+        else newStateLabel.textContent = stateNameToAdd.toUpperCase();
+
+        return newStateLabel;
+    }
+
+
+    /**
+     * Creates a new length control input element.
+     * @param {Number} stateLengthToAdd - the length of the state to be added
+     * @return new length control input element
+     */
+    createCustomLengthControl(stateLengthToAdd) {
         let newCustomLengthControl = document.createElement('div');
         newCustomLengthControl.className = 'customLengthControl';
 
         newCustomLengthControl.innerHTML = `
-            <input id="session" name="sessionLength" type="number" value="${stateLengthToAdd}" min="1">
+            <input class="custom-length" type="number" value="${stateLengthToAdd}" min="1">
             <span class='custom-unit'>mins</span>`;
 
-        this.customizationMainDisplay.appendChild(newStateElement);
-        this.customizationMainDisplay.appendChild(newCustomLengthControl);
+        return newCustomLengthControl;
+    }
 
+    /**
+     * Creates a new minus button with color depending on which state is to be added.
+     * @param {String} stateNameToAdd - State name of the new label to be created.
+     * @return new minus button element.
+     */
+    createMinusButton(stateNameToAdd) {
+        let minusButton = document.createElement('img');
+        let src;
+        let className;
+
+        if (stateNameToAdd == 'go') {
+            src = 'img/go-minus-button.png';
+            className = 'go-minus-button minus';
+        } else if (stateNameToAdd == 'rest') {
+            src = 'img/rest-minus-button.png';
+            className = 'rest-minus-button minus';
+        } else {
+            src = 'img/rest-minus-button.png';
+            className = 'long-rest-minus-button minus';
+        }
+
+        minusButton.src = src;
+        minusButton.className = className;
+        minusButton.alt = 'minus button';
+
+        return minusButton;
+    }
+
+
+
+    /**
+     * Clears the window of all states. 
+     * @return null 
+     */
+    clearAllStates() {
+        this.customizationMainDisplay.innerHTML = '';
+        pomoStateManager.stateArray = [];
+    }
+
+
+    createCustomStateArray() {
+        for (let i = 0; i < pomoStateManager.stateArray.length; i++) {
+            pomoStateManager.stateArray[i].length = document.querySelectorAll('.custom-length')[i].value;
+            //            console.log(document.querySelectorAll('.custom-length')[i])
+
+        }
+
+        console.log('custom array:', pomoStateManager.stateArray);
+        pomoStateManager.stateArray.push(new State('finish'));
     }
 
 

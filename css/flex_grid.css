@@ -86,7 +86,7 @@ Customization Window Styles
 
 .customization-main-display {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: auto 3fr 2fr;
     grid-auto-rows: 2rem;
     align-items: center;
     grid-row-gap: 0.1rem;

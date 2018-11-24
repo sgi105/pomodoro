@@ -210,14 +210,17 @@ Customization Window Styles
     height: 85vh;
     background: #F9F9F9;
     padding: 2rem 2rem 0rem 2rem;
-    /*    display: none;*/
+    border: 2px solid rgba(29, 158, 255, 0.8);
+    border-radius: 15px;
+    display: none;
 }
 
 .customization-main-display {
     height: 80%;
-    border: 1px solid black;
     overflow: scroll;
+    padding-bottom: 2rem;
 }
+
 
 .go-label {
     background: rgba(95, 207, 128, 0.8);
@@ -231,6 +234,23 @@ Customization Window Styles
     background: rgba(252, 136, 126, 1);
 }
 
+.go-minus-button {
+    height: 2rem;
+    width: 2rem;
+    opacity: 0.8;
+}
+
+.rest-minus-button {
+    height: 2rem;
+    width: 2rem;
+    opacity: 0.8;
+}
+
+.long-rest-minus-button {
+    height: 2rem;
+    width: 2rem;
+}
+
 .go-label,
 .rest-label,
 .long-rest-label {
@@ -238,6 +258,7 @@ Customization Window Styles
     color: #f9f9f9;
     text-align: center;
     padding-top: 0.4em;
+    border-radius: 3.2px;
 }
 
 .customLengthControl {
@@ -291,7 +312,7 @@ input:disabled {
 /*==================psuedo class========================*/
 
 .pointer:hover {
-    /*    all the clickable buttons have the class .pointer*/
+    /*all the clickable buttons have the class .pointer*/
     cursor: pointer;
 }
 
@@ -331,20 +352,24 @@ Test
 
 
 ::-webkit-scrollbar {
-    width: 1px;
+    width: 2px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    -webkit-box-shadow: inset 0 0 6px #f9f9f9;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    height: 3em;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0;
 }

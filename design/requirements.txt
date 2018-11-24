@@ -17,6 +17,10 @@ Future updates:
 *made customization page, not fully functioning yet.
 * have to make clear all, x button for each, and transition fade in, and be able to reach this page through setting
 
+(11/24) finished adding the fully customizing function. Have to clean up Setting.js though because it is very messy. Congrats!
+
+
+
 
 
 
