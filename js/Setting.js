@@ -61,6 +61,18 @@ class Setting {
             if (event.keyCode == 27) this.toggleFade(this.$form);
         });
 
+        this.fullyCustomizeButton.onclick = (evt) => {
+            if (this.validateForm(event)) {
+                // if the condition is not met, event.preventDefault() is not run, thus triggering the form sumbit to the server, and the form automatically checks if all the inputs match the validation of number inputs specified in the HTML. 
+                event.preventDefault();
+                this.storeValuesOfForm();
+                this.toggleFade(this.$customizationWindow);
+                this.clearAllStates();
+                pomoStateManager.createStateArray(this.targetSessionNumber);
+                this.presetCustomStates();
+            }
+        }
+
         this.formXButton.addEventListener('click', () => {
             this.toggleFade(this.$form);
         })
@@ -103,12 +115,7 @@ class Setting {
             pomoStateManager.render(new State('ready'));
         }
 
-        this.fullyCustomizeButton.onclick = (evt) => {
-            evt.preventDefault();
-            this.toggleFade(this.$customizationWindow);
-            this.storeValuesOfForm();
-            this.clearAllStates();
-        }
+
 
         this.customizationXButton.onclick = (evt) => {
             this.toggleFade(this.$customizationWindow);
@@ -282,10 +289,35 @@ class Setting {
         return minusButton;
     }
 
+    /**
+     * the basic template of the states are preset according to the settings before the customize button is pressed. So that the user does not have to add everything by himself.  
+     * @return null 
+     */
+    presetCustomStates() {
+
+        pomoStateManager.stateArray.pop();
+
+        for (let state of pomoStateManager.stateArray) {
+
+            let stateNameToAdd = state.name;
+            let stateLengthToAdd = state.length;
+
+            let newStateLabel = this.createStateLabel(stateNameToAdd);
+            let newCustomLengthControl = this.createCustomLengthControl(stateLengthToAdd);
+            let newMinusButton = this.createMinusButton(stateNameToAdd);
+
+            this.customizationMainDisplay.appendChild(newMinusButton);
+            this.customizationMainDisplay.appendChild(newStateLabel);
+            this.customizationMainDisplay.appendChild(newCustomLengthControl);
+            console.log(pomoStateManager.stateArray);
+        }
+
+    }
+
 
 
     /**
-     * Clears the window of all states. 
+     * Clears the window of all states, and clears the state array.
      * @return null 
      */
     clearAllStates() {
@@ -294,6 +326,10 @@ class Setting {
     }
 
 
+    /**
+     * Called when user presses 'OK' in the custom settings window. It adjusts the length of each state according to the user input, and adds a 'finish' state at the end.
+     * @return null 
+     */
     createCustomStateArray() {
         for (let i = 0; i < pomoStateManager.stateArray.length; i++) {
             pomoStateManager.stateArray[i].length = document.querySelectorAll('.custom-length')[i].value;

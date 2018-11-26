@@ -10,6 +10,7 @@ class StateManager {
         this.stateArray;
         this.state = new State('ready'); // ready, go, rest, longRest 
         this.progress = 0;
+        this.pastStateArray = [];
 
         //colors
         this.readyColor = 'rgba(29, 158, 255, 0.8)';
@@ -65,14 +66,46 @@ class StateManager {
 
     /**
      * Proceeds to next state, and increase progress by 1.
-     * Calls the method activateState().
+     * Calls the method render().
+     * Saves the past states into an array for later reference.
      * @return null 
      */
     toNextState() {
-        if (this.progress != 0) pomoSound.bell.play();
+        if (this.progress != 0 && pomoController.playAlarm == true) pomoSound.bell.play();
         this.state = this.stateArray.shift();
+        this.pastStateArray.push(this.state);
         if (this.state.name == 'go') this.progress++;
         this.render(this.state);
+        console.log('this is after toNextState() is run', this.stateArray);
+    }
+
+    /**
+     * Returns to previous state, and decrease progress by 1.
+     * Calls the method render().
+     * have to take care of the progress count.
+     * @return null 
+     */
+    toPrevState() {
+        //get the last two elements from the past state array, and delete them.
+        console.log('this is the past array before splice', JSON.parse(JSON.stringify(this.pastStateArray)));
+        let prevStates = this.pastStateArray.splice(-2, 2);
+        console.log('this is the past array after splice', JSON.parse(JSON.stringify(this.pastStateArray)));
+        //add this element to the beginning of the state array.
+
+        console.log('this is the prevStates', ...prevStates);
+        this.stateArray.unshift(...prevStates);
+        //call toNextState()
+
+        console.log('this is the restored state array', JSON.parse(JSON.stringify(this.stateArray)));
+        this.toNextState();
+    }
+
+    /**
+     * Returns to the start of the whole state array sequence.
+     * @return null 
+     */
+    resetAllStates() {
+
     }
 
 

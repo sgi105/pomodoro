@@ -68,19 +68,33 @@ main {
 
 .pause-button {
     width: 4rem;
+    margin: 0 -6.3rem;
 }
 
 .play-button {
     width: 3.5rem;
+    margin: 0 -6rem;
 }
 
 .reset-button {
     width: 1.5rem;
+
 }
 
 .reset-all-button {
     width: 3rem;
     height: 3rem;
+}
+
+.prev-button,
+.next-button {
+    width: 2rem;
+    height: 2rem;
+    align-self: center;
+}
+
+.next-button {
+    transform: rotate(180deg);
 }
 
 .progress {
@@ -207,7 +221,7 @@ Customization Window Styles
     width: 90%;
     max-width: 26.875rem;
     border: 1px solid black;
-    height: 85vh;
+    height: 95vh;
     background: #F9F9F9;
     padding: 2rem 2rem 0rem 2rem;
     border: 2px solid rgba(29, 158, 255, 0.8);
@@ -216,7 +230,7 @@ Customization Window Styles
 }
 
 .customization-main-display {
-    height: 80%;
+    height: 75%;
     overflow: scroll;
     padding-bottom: 2rem;
 }
@@ -298,7 +312,7 @@ Customization Window Styles
     background: #F9F9F9;
     height: 2em;
     border: 1px solid rgba(29, 158, 255, 0.8);
-    margin: 0.3rem auto -.5rem;
+    margin: 2rem auto -.5rem;
     color: #5B5B5B;
 }
 

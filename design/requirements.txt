@@ -19,12 +19,13 @@ Future updates:
 
 (11/24) finished adding the fully customizing function. Have to clean up Setting.js though because it is very messy. Congrats!
 
+* change it so that when customize button is pressed, the basic template of the states are preset. (o)
 
 
 
 
-
--Add next, prev button to navigate the timer
+-Add next, prev button to navigate the timer (in progress)
+* have to decrease the progress counter when StateManager.toPrevState() is called.(11/26)
 
 -change all the icons to svg
 

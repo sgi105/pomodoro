@@ -3,6 +3,8 @@ class Controller {
         this.buttonContainer = document.querySelector('.button-container');
         this.playState = 'ready';
 
+        //var
+        this.playAlarm = true;
 
         //-------------- Dynamically created Elements ------------------------
         this.playButton = document.createElement('img'); //Button
@@ -24,6 +26,16 @@ class Controller {
         this.resetAllButton.className = 'reset-all-button pointer';
         this.resetAllButton.src = 'img/reset.png';
         this.resetAllButton.alt = 'reset-all-button';
+
+        this.prevButton = document.createElement('img');
+        this.prevButton.className = 'prev-button pointer';
+        this.prevButton.src = 'img/prev-button.png';
+        this.prevButton.alt = 'previous button';
+
+        this.nextButton = document.createElement('img');
+        this.nextButton.className = 'next-button pointer';
+        this.nextButton.src = 'img/prev-button.png';
+        this.nextButton.alt = 'next button';
 
         //initialize
         this.createEventListeners();
@@ -49,9 +61,22 @@ class Controller {
             this.render('reset');
         });
 
+        this.nextButton.addEventListener('click', () => {
+            this.render('next');
+        })
+
+        this.prevButton.addEventListener('click', () => {
+            this.render('prev');
+        })
+
+        this.resetAllButton.addEventListener('click', () => {
+            this.render('resetAll');
+        })
+
         document.addEventListener('keypress', (event) => {
             this.handleKeyboardShortCuts(event);
         });
+
     }
 
 
@@ -113,13 +138,18 @@ class Controller {
             case 'play':
                 pomoTimer.start();
                 this.buttonClear();
+                this.buttonContainer.appendChild(this.prevButton);
                 this.buttonContainer.appendChild(this.pauseButton);
+                this.buttonContainer.appendChild(this.nextButton);
+
                 break;
 
             case 'pause':
                 pomoTimer.stop();
                 this.buttonClear();
+                this.buttonContainer.appendChild(this.prevButton);
                 this.buttonContainer.appendChild(this.playButton);
+                this.buttonContainer.appendChild(this.nextButton);
                 this.buttonContainer.appendChild(this.resetButton);
                 break;
 
@@ -129,10 +159,36 @@ class Controller {
                 break;
 
             case 'reset':
-                pomoStateManager.render(pomoStateManager.state);
                 this.buttonClear();
+                pomoStateManager.render(pomoStateManager.state);
                 this.buttonContainer.appendChild(this.playButton);
                 break;
+
+            case 'prev':
+                this.buttonContainer.prepend(this.prevButton);
+                this.buttonContainer.appendChild(this.nextButton);
+                this.playAlarm = false;
+                pomoStateManager.toPrevState();
+                this.playAlarm = true;
+                break;
+
+            case 'next':
+                this.buttonContainer.prepend(this.prevButton);
+                this.buttonContainer.appendChild(this.nextButton);
+                this.playAlarm = false;
+                pomoStateManager.toNextState();
+                this.playAlarm = true;
+                break;
+
+            case 'resetAll':
+                this.buttonContainer.prepend(this.prevButton);
+                this.buttonContainer.appendChild(this.nextButton);
+                this.playAlarm = false;
+                pomoStateManager.toNextState();
+                this.playAlarm = true;
+                break;
+
+
         }
     }
 
