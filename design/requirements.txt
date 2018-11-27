@@ -24,12 +24,14 @@ Future updates:
 
 
 
--Add next, prev button to navigate the timer (in progress)
-* have to decrease the progress counter when StateManager.toPrevState() is called.(11/26)
-
--change all the icons to svg
+-Add next, prev button to navigate the timer (11/26)
+* decrease the progress counter when StateManager.toPrevState() is called.(11/27)
 
 -Customize sound bell and when it will ring before time is out.
+* researching about AudioContext API that allows to create custom audio objects.
+
+
+-change all the icons to svg
 
 -Make a circular progress bar around the clock. 
 

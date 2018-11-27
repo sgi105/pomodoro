@@ -82,22 +82,30 @@ class StateManager {
     /**
      * Returns to previous state, and decrease progress by 1.
      * Calls the method render().
-     * have to take care of the progress count.
+     * Takes care of the progress count.
      * @return null 
      */
     toPrevState() {
-        //get the last two elements from the past state array, and delete them.
-        console.log('this is the past array before splice', JSON.parse(JSON.stringify(this.pastStateArray)));
-        let prevStates = this.pastStateArray.splice(-2, 2);
-        console.log('this is the past array after splice', JSON.parse(JSON.stringify(this.pastStateArray)));
-        //add this element to the beginning of the state array.
+        this.progress--;
+        //if current state is the first one, go back to ready state
+        if (this.pastStateArray.length <= 1) {
+            this.stateArray.unshift(this.state);
+            this.state = new State('ready');
+            this.render(this.state);
+        } else {
+            //get the last two elements from the past state array, and delete them.
+            console.log('this is the past array before splice', JSON.parse(JSON.stringify(this.pastStateArray)));
+            let prevStates = this.pastStateArray.splice(-2, 2);
+            console.log('this is the past array after splice', JSON.parse(JSON.stringify(this.pastStateArray)));
+            //add this element to the beginning of the state array.
 
-        console.log('this is the prevStates', ...prevStates);
-        this.stateArray.unshift(...prevStates);
-        //call toNextState()
+            console.log('this is the prevStates', ...prevStates);
+            this.stateArray.unshift(...prevStates);
+            //call toNextState()
 
-        console.log('this is the restored state array', JSON.parse(JSON.stringify(this.stateArray)));
-        this.toNextState();
+            console.log('this is the restored state array', JSON.parse(JSON.stringify(this.stateArray)));
+            this.toNextState();
+        }
     }
 
     /**
@@ -142,6 +150,7 @@ class StateManager {
     render(state) {
         switch (state.name) {
             case 'ready':
+                pomoTimer.stop();
                 pomoTimer.set(this.stateArray[0].length, 0);
                 pomoTimer.render();
                 this.header.style.background = this.readyColor;
