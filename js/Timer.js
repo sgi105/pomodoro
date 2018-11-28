@@ -41,7 +41,7 @@ class Timer {
                 }
             } else this.second--; // when this.second is not 0, decrease this.second by 1
             this.render();
-        }, 1000);
+        }, 1);
     };
 
     /** 

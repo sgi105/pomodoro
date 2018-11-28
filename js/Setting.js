@@ -43,7 +43,8 @@ class Setting {
         });
 
         this.repeatForeverCheckBox.addEventListener('click', () => {
-            this.toggleTargetSessionNumberInput()
+            this.toggleTargetSessionNumberInput();
+            this.toggleFullyCustomizeButton();
         });
 
         this.$formOKButton.on('click', (event) => {
@@ -151,6 +152,23 @@ class Setting {
         if (this.repeatForeverCheckBox.checked) this.sessionNumberInput.setAttribute('disabled', 'true');
         else this.sessionNumberInput.removeAttribute('disabled');
     }
+
+
+    /**
+     * disable the button for "Fully Customize" if they check "Repeat forever"
+     * @return null 
+     */
+    toggleFullyCustomizeButton() {
+        if (this.repeatForeverCheckBox.checked) {
+            this.fullyCustomizeButton.setAttribute('disabled', 'true');
+            this.fullyCustomizeButton.className = 'fully-customize-button';
+        } else {
+            this.fullyCustomizeButton.removeAttribute('disabled');
+            this.fullyCustomizeButton.className = 'fully-customize-button pointer';
+
+        }
+    }
+
 
     /**
      * Checks if every number is a positive integer.

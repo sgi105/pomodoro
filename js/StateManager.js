@@ -71,7 +71,7 @@ class StateManager {
      * @return null 
      */
     toNextState() {
-        if (this.progress != 0 && pomoController.playAlarm == true) pomoSound.bell.play();
+        if (this.progress != 0 && pomoController.playAlarm == true) pomoSound.playDing();
         this.state = this.stateArray.shift();
         this.pastStateArray.push(this.state);
         if (this.state.name == 'go') this.progress++;
@@ -113,7 +113,10 @@ class StateManager {
      * @return null 
      */
     resetAllStates() {
-
+        console.log(this.pastStateArray);
+        this.stateArray = this.pastStateArray;
+        this.pastStateArray = [];
+        this.render(new State('ready'));
     }
 
 
@@ -134,9 +137,24 @@ class StateManager {
      * @return null 
      */
     updateProgressMessage() {
-        if (this.progress == 0) this.progressContainer.textContent = `- ${this.progress+1}/${pomoSetting.targetSessionNumber} -`;
-        else if (pomoSetting.targetSessionNumber == 1000) this.progressContainer.textContent = `- ${this.progress} -`; //targetSessionNumber == 1000 means that the user set the sessions to repeat forever. So, hide the total number of sessions
-        else this.progressContainer.textContent = `- ${this.progress}/${pomoSetting.targetSessionNumber} -`;
+        let target = pomoSetting.targetSessionNumber;
+
+        //targetSessionNumber == 1000 means that the user set the sessions to repeat forever. So, hide the total number of sessions
+
+        if (target == 1000) {
+
+            if (this.progress == 0) {
+                this.progressContainer.textContent = `- ${this.progress+1} -`;
+            } else {
+                this.progressContainer.textContent = `- ${this.progress} -`;
+            }
+        } else {
+            if (this.progress == 0) {
+                this.progressContainer.textContent = `- ${this.progress+1}/${target} -`;
+            } else {
+                this.progressContainer.textContent = `- ${this.progress}/${target} -`;
+            }
+        }
     }
 
 
@@ -150,6 +168,7 @@ class StateManager {
     render(state) {
         switch (state.name) {
             case 'ready':
+                this.progress = 0;
                 pomoTimer.stop();
                 pomoTimer.set(this.stateArray[0].length, 0);
                 pomoTimer.render();

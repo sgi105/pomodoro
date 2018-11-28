@@ -181,10 +181,8 @@ class Controller {
                 break;
 
             case 'resetAll':
-                this.buttonContainer.prepend(this.prevButton);
-                this.buttonContainer.appendChild(this.nextButton);
                 this.playAlarm = false;
-                pomoStateManager.toNextState();
+                pomoStateManager.resetAllStates();
                 this.playAlarm = true;
                 break;
 

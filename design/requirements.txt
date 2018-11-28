@@ -27,9 +27,14 @@ Future updates:
 -Add next, prev button to navigate the timer (11/26)
 * decrease the progress counter when StateManager.toPrevState() is called.(11/27)
 
--Customize sound bell and when it will ring before time is out.
+-Customize sound bell and when it will ring before time is out. (11/28)
 * researching about AudioContext API that allows to create custom audio objects.
 
+- disable fully customize button when checkbox is checked (11/28)
+
+-Add alarm state to set it in customization with checkbox.
+
+-Show total duration, and the time the whole session is going to finish at ready state
 
 -change all the icons to svg
 
