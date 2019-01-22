@@ -356,13 +356,11 @@ class Setting {
         }
 
         console.log('custom array:', pomoStateManager.stateArray);
+
+        // get total time with the customized sessions. and set up the total timer.
+        pomoTimer.setTotalTime(pomoStateManager.getTotalTime(pomoStateManager.stateArray));
+
         pomoStateManager.stateArray.push(new State('finish'));
+
     }
-
-
-
-
-
-
-
 }

@@ -11,6 +11,8 @@ class StateManager {
         this.state = new State('ready'); // ready, go, rest, longRest 
         this.progress = 0;
         this.pastStateArray = [];
+        this.totalTime;
+
 
         //colors
         this.readyColor = 'rgba(29, 158, 255, 0.8)';
@@ -22,6 +24,7 @@ class StateManager {
         //init
         //        this.render('ready');
         this.createStateArray(12);
+
     }
 
     /**
@@ -36,7 +39,21 @@ class StateManager {
             else if (i % 4 != 0) this.stateArray.push(new State('go', pomoSetting.sessionLength), new State('rest', pomoSetting.restLength));
             else this.stateArray.push(new State('go', pomoSetting.sessionLength), new State('longRest', pomoSetting.longRestLength));
         }
+
+        // saves total time as it is creating the state array.
+        pomoTimer.setTotalTime(this.getTotalTime(this.stateArray));
         console.log('this is the state array created:', this.stateArray);
+    }
+
+    /**
+     * Calculates the total time required to finish the whole sequence.
+     * @param {Array} stateArray - the array holding all the states
+     * @return total length of the whole sequence in minutes.
+     */
+    getTotalTime(stateArray) {
+        return stateArray.reduce((totalTime, state) => {
+            return parseInt(state.length) + totalTime;
+        }, 0)
     }
 
     /**
